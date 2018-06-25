@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>The Magical Boob Button</title>
+</head>
+
+<body style="text-align: center">
+  <button id="boob-button">magical boob button</button>
+  <div id="images">
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    //When the cat button is clicked...
+    $("#boob-button").on("click", function() {
+      setInterval(wrapFunction, 200);
+
+      function wrapFunction (){
+
+      //Put our search query url into an var to be called later
+      var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=joj9EAW4idOiU1fBOhNjjIj9hCxv1L5B&tag=boob";
+
+      //Send out a request to the server to get our results
+      $.ajax({
+        url: queryURL,
+        method: "GET"
+      })
+
+      // .then is the second part of the ajax request, it activates when the response is recieved
+        .then(function(response) {
+
+        // Pull the original URL from the response we get back
+          var imageUrl = response.data.image_original_url;
+        
+          // $("<img>"); makes an html img-tag and is set to the catImage variable
+          var boobImage = $("<img>");
+
+          //the src and alt attributes will then be assigned the previously made img tag
+          // importantly, the image link that we stored earlier will be assigned as the img src
+          boobImage.attr("src", imageUrl);
+          boobImage.attr("alt", "cat image");
+          boobImage.attr("style", "max-width:300px;max-height:300px;");
+
+          //Prepend the img tag we just made to the empty div with the ID of "images"
+          $("#images").prepend(boobImage);
+        });
+      };
+    });
+  </script>
+</body>
+
+</html>
